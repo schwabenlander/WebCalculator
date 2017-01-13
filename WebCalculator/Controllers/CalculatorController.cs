@@ -11,63 +11,173 @@ namespace WebCalculator.Controllers
     public class CalculatorController : ApiController
     {
         [Route("api/calculator/add")]
-        public IHttpActionResult Add(EquationOperandsModel equation)
+        public IHttpActionResult Add([FromBody]EquationOperandsModel equation)
         {
-            return Ok(equation.Operand1 + equation.Operand2);
+            double result;
+
+            try
+            {
+                result = equation.Operand1 + equation.Operand2;
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+            
+            return Ok(result);
         }
 
         [Route("api/calculator/subtract")]
-        public IHttpActionResult Subtract(int x, int y)
+        public IHttpActionResult Subtract([FromBody]EquationOperandsModel equation)
         {
-            return Ok(x - y);
+            double result;
+
+            try
+            {
+                result = equation.Operand1 - equation.Operand2;
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/multiply")]
-        public IHttpActionResult Multiply(double x, double y)
+        public IHttpActionResult Multiply([FromBody]EquationOperandsModel equation)
         {
-            return Ok(x * y);
+            double result;
+
+            try
+            {
+                result = equation.Operand1 * equation.Operand2;
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/divide")]
-        public IHttpActionResult Divide(double x, double y)
+        public IHttpActionResult Divide([FromBody]EquationOperandsModel equation)
         {
-            return Ok(x / y);
+            double result;
+
+            try
+            {
+                result = equation.Operand1 / equation.Operand2;
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/mod")]
-        public IHttpActionResult Mod(double x, double y)
+        public IHttpActionResult Mod([FromBody]EquationOperandsModel equation)
         {
-            return Ok(x % y);
+            double result;
+
+            try
+            {
+                result = equation.Operand1 % equation.Operand2;
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/square")]
-        public IHttpActionResult Square(double x)
+        public IHttpActionResult Square([FromBody]EquationOperandsModel equation)
         {
-            return Ok(x * x);
+            double result;
+
+            try
+            {
+                result = equation.Operand1 * equation.Operand1;
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/squareroot")]
-        public IHttpActionResult SquareRoot(double x)
+        public IHttpActionResult SquareRoot([FromBody]EquationOperandsModel equation)
         {
-            return Ok(Math.Sqrt(x));
+            double result;
+
+            try
+            {
+                result = Math.Sqrt(equation.Operand1);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/sin")]
-        public IHttpActionResult Sin(double x)
+        public IHttpActionResult Sin([FromBody]EquationOperandsModel equation)
         {
-            return Ok(Math.Sin(x));
+            double result;
+
+            try
+            {
+                result = Math.Sin(equation.Operand1);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/cos")]
-        public IHttpActionResult Cos(double x)
+        public IHttpActionResult Cos([FromBody]EquationOperandsModel equation)
         {
-            return Ok(Math.Cos(x));
+            double result;
+
+            try
+            {
+                result = Math.Cos(equation.Operand1);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
 
         [Route("api/calculator/tan")]
-        public IHttpActionResult Tan(double x)
+        public IHttpActionResult Tan([FromBody]EquationOperandsModel equation)
         {
-            return Ok(Math.Tan(x));
+            double result;
+
+            try
+            {
+                result = Math.Tan(equation.Operand1);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid input.");
+            }
+
+            return Ok(result);
         }
     }
 }
