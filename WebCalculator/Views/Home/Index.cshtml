@@ -37,7 +37,7 @@
         var api = "~/api/calculator/";
 
         var operations = {
-            NOTHING: 0,
+            NOTHING: -1,
             ADD: 1,
             SUBTRACT: 2,
             MULTIPLY: 3,
@@ -49,7 +49,7 @@
         };
 
         $(document).ready(function(){
-            var operation = 0;
+            var operation = operations.NOTHING;
 
             var equation = {
                 Operand1: "",
@@ -90,7 +90,7 @@
                 }
 
                 // Reset values
-                operation = 0;
+                operation = operations.NOTHING;
                 equation.Operand1 = "";
                 equation.Operand2 = "";
             };
