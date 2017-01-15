@@ -1,5 +1,6 @@
 ﻿<div class="row">
-    <div class="col-xs-4"><input id="display" class="form-control" type="text"></div>
+    <div class="col-xs-3"><input id="display" class="form-control" type="text"></div>
+    <div class="col-xs-offset-1 col-xs-1"><button id="clear" class="btn btn-default">CE</button></div>
 </div>
 <div class="row">
     <div class="col-xs-1"><button id="sin" class="btn btn-default">sin</button></div>
@@ -23,7 +24,7 @@
     <div class="col-xs-1"><button id="one" class="btn btn-default">1</button></div>
     <div class="col-xs-1"><button id="two" class="btn btn-default">2</button></div>
     <div class="col-xs-1"><button id="three" class="btn btn-default">3</button></div>
-    <div class="col-xs-1"><button id="subtract" class="btn btn-default">&minus;</button></div>
+    <div class="col-xs-1"><button id="minus" class="btn btn-default">&minus;</button></div>
 </div>
 <div class="row">
     <div class="col-xs-1"><button id="dot" class="btn btn-default">.</button></div>
@@ -34,7 +35,7 @@
 
 @section scripts {
     <script type="text/javascript">
-        var api = "~/api/calculator/";
+        var api = "http://localhost:58045/api/calculator/";
 
         var operations = {
             NOTHING: -1,
@@ -48,7 +49,8 @@
             SQRT: 8
         };
 
-        $(document).ready(function(){
+        $(document).ready(function () {
+            console.log(api);
             var operation = operations.NOTHING;
 
             var equation = {
@@ -56,47 +58,60 @@
                 Operand2: ""
             };
 
-            var submit = function(){
+            var solve = function () {
+                equation.Operand2 = $("#display").val();
+
                 if (operation === operations.NOTHING) {
                     // do nothing
                 } else if (operation === operations.ADD) {
-                    $.post(api + "add", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "add", equation, function(data) {
+                        $("#display").val(data);
                     });
                 } else if (operation === operations.SUBTRACT) {
-                    $.post(api + "subtract", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "subtract", equation, function(data) {
+                        $("#display").val(data);
                     });
                 } else if (operation === operations.MULTIPLY) {
-                    $.post(api + "multiply", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "multiply", equation, function(data) {
+                        $("#display").val(data);
                     });
                 } else if (operation === operations.DIVIDE) {
-                    $.post(api + "divide", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "divide", equation, function(data) {
+                        $("#display").val(data);
                     });
                 } else if (operation === operations.SIN) {
-                    $.post(api + "sin", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "sin", equation, function(data) {
+                        $("#display").val(data);
                     });
                 } else if (operation === operations.COS) {
-                    $.post(api + "cos", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "cos", equation, function(data) {
+                        $("#display").val(data);
                     });
                 } else if (operation === operations.TAN) {
-                    $.post(api + "tan", equation, function() {
-                        $("#display").text(data);
+                    $.post(api + "tan", equation, function(data) {
+                        $("#display").val(data);
+                    });
+                } else if (operation === operations.SQRT) {
+                    $.post(api +"squareroot", equation, function (data) {
+                        $("#display").val(data);
                     });
                 }
 
                 // Reset values
                 operation = operations.NOTHING;
-                equation.Operand1 = "";
+                equation.Operand1 = $("#display").val();
                 equation.Operand2 = "";
             };
 
+            $("#clear").click(function() {
+                $("#display").val("");
+                operation = operations.NOTHING;
+                equation.Operand1 = "";
+                equation.Operand2 = "";
+            });
+
             $("#equals").click(function () {
-                submit();
+                solve();
             });
 
             $("#zero").click(function() {
@@ -146,53 +161,53 @@
             $("#plus").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.ADD;
-                $("#display").text("");
+                $("#display").val("");
             });
 
             $("#minus").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.SUBTRACT;
-                $("#display").text("");
+                $("#display").val("");
             });
 
             $("#multiply").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.MULTIPLY;
-                $("#display").text("");
+                $("#display").val("");
             });
 
             $("#divide").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.DIVIDE;
-                $("#display").text("");
+                $("#display").val("");
             });
 
             $("#sqrt").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.SQRT;
-                $("#display").text("");
-                submit();
+                $("#display").val("");
+                solve();
             });
 
             $("#sin").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.SIN;
-                $("#display").text("");
-                submit();
+                $("#display").val("");
+                solve();
             });
 
             $("#cos").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.COS;
-                $("#display").text("");
-                submit();
+                $("#display").val("");
+                solve();
             });
 
             $("#tan").click(function () {
                 equation.Operand1 = $("#display").val();
                 operation = operations.TAN;
-                $("#display").text("");
-                submit();
+                $("#display").val("");
+                solve();
             });
         });
 </script>
