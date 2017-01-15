@@ -34,12 +34,6 @@ namespace WebCalculator.Controllers
             return Ok(equation.Operand1 / equation.Operand2);
         }
 
-        [Route("api/calculator/mod")]
-        public IHttpActionResult Mod([FromBody]EquationOperandsModel equation)
-        {
-            return Ok(equation.Operand1 % equation.Operand2);
-        }
-
         [Route("api/calculator/square")]
         public IHttpActionResult Square([FromBody]EquationOperandsModel equation)
         {

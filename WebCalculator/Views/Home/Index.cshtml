@@ -1,45 +1,199 @@
 ﻿<div class="row">
-    <div class="col-xs-4"></div>
-    <div class="col-xs-4"><input class="form-control" type="text" value="0.0"></div>
-    <div class="col-xs-4"></div>
+    <div class="col-xs-4"><input id="display" class="form-control" type="text"></div>
 </div>
 <div class="row">
-    <div class="col-xs-4"></div>
-    <div class="col-xs-1"><button class="btn btn-default">sin</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">cos</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">tan</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">&radic;</button></div>
-    <div class="col-xs-4"></div>
+    <div class="col-xs-1"><button id="sin" class="btn btn-default">sin</button></div>
+    <div class="col-xs-1"><button id="cos" class="btn btn-default">cos</button></div>
+    <div class="col-xs-1"><button id="tan" class="btn btn-default">tan</button></div>
+    <div class="col-xs-1"><button id="sqrt" class="btn btn-default">&radic;</button></div>
 </div>
 <div class="row">
-    <div class="col-xs-4"></div>
-    <div class="col-xs-1"><button class="btn btn-default">7</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">8</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">9</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">&div;</button></div>
-    <div class="col-xs-4"></div>
+    <div class="col-xs-1"><button id="seven" class="btn btn-default">7</button></div>
+    <div class="col-xs-1"><button id="eight" class="btn btn-default">8</button></div>
+    <div class="col-xs-1"><button id="nine" class="btn btn-default">9</button></div>
+    <div class="col-xs-1"><button id="divide" class="btn btn-default">&divide;</button></div>
 </div>
 <div class="row">
-    <div class="col-xs-4"></div>
-    <div class="col-xs-1"><button class="btn btn-default">4</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">5</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">6</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">&times;</button></div>
-    <div class="col-xs-4"></div>
+    <div class="col-xs-1"><button id="four" class="btn btn-default">4</button></div>
+    <div class="col-xs-1"><button id="five" class="btn btn-default">5</button></div>
+    <div class="col-xs-1"><button id="six" class="btn btn-default">6</button></div>
+    <div class="col-xs-1"><button id="multiply" class="btn btn-default">&times;</button></div>
 </div>
 <div class="row">
-    <div class="col-xs-4"></div>
-    <div class="col-xs-1"><button class="btn btn-default">1</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">2</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">3</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">-</button></div>
-    <div class="col-xs-4"></div>
+    <div class="col-xs-1"><button id="one" class="btn btn-default">1</button></div>
+    <div class="col-xs-1"><button id="two" class="btn btn-default">2</button></div>
+    <div class="col-xs-1"><button id="three" class="btn btn-default">3</button></div>
+    <div class="col-xs-1"><button id="subtract" class="btn btn-default">&minus;</button></div>
 </div>
 <div class="row">
-    <div class="col-xs-4"></div>
-    <div class="col-xs-1"><button class="btn btn-default">.</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">0</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">=</button></div>
-    <div class="col-xs-1"><button class="btn btn-default">+</button></div>
-    <div class="col-xs-4"></div>
+    <div class="col-xs-1"><button id="dot" class="btn btn-default">.</button></div>
+    <div class="col-xs-1"><button id="zero" class="btn btn-default">0</button></div>
+    <div class="col-xs-1"><button id="equals" class="btn btn-default">=</button></div>
+    <div class="col-xs-1"><button id="plus" class="btn btn-default">+</button></div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        var api = "~/api/calculator/";
+
+        var operations = {
+            NOTHING: 0,
+            ADD: 1,
+            SUBTRACT: 2,
+            MULTIPLY: 3,
+            DIVIDE: 4,
+            SIN: 5,
+            COS: 6,
+            TAN: 7,
+            SQRT: 8
+        };
+
+        $(document).ready(function(){
+            var operation = 0;
+
+            var equation = {
+                Operand1: "",
+                Operand2: ""
+            };
+
+            var submit = function(){
+                if (operation === operations.NOTHING) {
+                    // do nothing
+                } else if (operation === operations.ADD) {
+                    $.post(api + "add", equation, function() {
+                        $("#display").text(data);
+                    });
+                } else if (operation === operations.SUBTRACT) {
+                    $.post(api + "subtract", equation, function() {
+                        $("#display").text(data);
+                    });
+                } else if (operation === operations.MULTIPLY) {
+                    $.post(api + "multiply", equation, function() {
+                        $("#display").text(data);
+                    });
+                } else if (operation === operations.DIVIDE) {
+                    $.post(api + "divide", equation, function() {
+                        $("#display").text(data);
+                    });
+                } else if (operation === operations.SIN) {
+                    $.post(api + "sin", equation, function() {
+                        $("#display").text(data);
+                    });
+                } else if (operation === operations.COS) {
+                    $.post(api + "cos", equation, function() {
+                        $("#display").text(data);
+                    });
+                } else if (operation === operations.TAN) {
+                    $.post(api + "tan", equation, function() {
+                        $("#display").text(data);
+                    });
+                }
+
+                // Reset values
+                operation = 0;
+                equation.Operand1 = "";
+                equation.Operand2 = "";
+            };
+
+            $("#equals").click(function () {
+                submit();
+            });
+
+            $("#zero").click(function() {
+                $("#display").val($("#display").val() + "0");
+            });
+
+            $("#one").click(function() {
+                $("#display").val($("#display").val() + "1");
+            });
+
+            $("#two").click(function() {
+                $("#display").val($("#display").val() + "2");
+            });
+
+            $("#three").click(function() {
+                $("#display").val($("#display").val() + "3");
+            });
+
+            $("#four").click(function() {
+                $("#display").val($("#display").val() + "4");
+            });
+
+            $("#five").click(function() {
+                $("#display").val($("#display").val() + "5");
+            });
+
+            $("#six").click(function() {
+                $("#display").val($("#display").val() + "6");
+            });
+
+            $("#seven").click(function() {
+                $("#display").val($("#display").val() + "7");
+            });
+
+            $("#eight").click(function() {
+                $("#display").val($("#display").val() + "8");
+            });
+
+            $("#nine").click(function() {
+                $("#display").val($("#display").val() + "9");
+            });
+
+            $("#dot").click(function() {
+                $("#display").val($("#display").val() + ".");
+            });
+
+            $("#plus").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.ADD;
+                $("#display").text("");
+            });
+
+            $("#minus").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.SUBTRACT;
+                $("#display").text("");
+            });
+
+            $("#multiply").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.MULTIPLY;
+                $("#display").text("");
+            });
+
+            $("#divide").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.DIVIDE;
+                $("#display").text("");
+            });
+
+            $("#sqrt").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.SQRT;
+                $("#display").text("");
+                submit();
+            });
+
+            $("#sin").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.SIN;
+                $("#display").text("");
+                submit();
+            });
+
+            $("#cos").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.COS;
+                $("#display").text("");
+                submit();
+            });
+
+            $("#tan").click(function () {
+                equation.Operand1 = $("#display").val();
+                operation = operations.TAN;
+                $("#display").text("");
+                submit();
+            });
+        });
+</script>
+}
